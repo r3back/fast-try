@@ -1,3 +1,3 @@
 rootProject.name = "fast-try"
-include (":fast-try-core")
+include (":fast-try")
 
