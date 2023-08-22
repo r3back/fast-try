@@ -1,5 +1,6 @@
 package com.qualityplus.fasttry.core;
 
+import com.qualityplus.fasttry.core.runnable.TryRunnable;
 import com.qualityplus.fasttry.core.supplier.TrySupplier;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +31,25 @@ public interface FastTry<T> {
         }
 
         return new FastTryImpl<>(value, exception);
+    }
+
+    /**
+     * Creates a FastTry given a {@link TrySupplier}
+     *
+     * @param runnable {@link TryRunnable} runnable for try
+     * @return new FastTry instance
+     * @param <H> Generic Supplier type
+     */
+    public static <H> FastTry<H> of(final TryRunnable runnable) {
+        Throwable exception = null;
+
+        try {
+            runnable.run();
+        } catch (final Throwable caught) {
+            exception = caught;
+        }
+
+        return new FastTryImpl<>(null, exception);
     }
 
     /**
@@ -141,7 +161,7 @@ public interface FastTry<T> {
 
         @Override
         public boolean isSuccess() {
-            return getValue().isPresent();
+            return !isFailure();
         }
 
         @Override

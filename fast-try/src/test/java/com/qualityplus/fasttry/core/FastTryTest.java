@@ -59,4 +59,36 @@ public class FastTryTest {
         Assertions.assertFalse(result.isFailure());
         Assertions.assertTrue(result.isSuccess());
     }
+
+    /**
+     * Test when void method is passed in {@link FastTry}
+     */
+    @Test
+    @DisplayName("Test when void throwable method is passed in FastTry")
+    public void testWhenVoidMethodIsPassed() {
+        final FastTry<String> result = FastTry.of(this.service::runTask);
+
+        Assertions.assertFalse(result.getException().isPresent());
+        Assertions.assertFalse(result.getValue().isPresent());
+
+        Assertions.assertFalse(result.isFailure());
+        Assertions.assertTrue(result.isSuccess());
+    }
+
+    /**
+     * Test when void method is passed in {@link FastTry}
+     */
+    @Test
+    @DisplayName("Test when void throwable method is passed in FastTry")
+    public void testWhenVoidThrowableMethodIsPassed() throws Exception {
+        Mockito.doThrow(new MockException()).when(this.service).runThrowableTask();
+
+        final FastTry<String> result = FastTry.of(this.service::runThrowableTask);
+
+        Assertions.assertTrue(result.getException().isPresent());
+        Assertions.assertFalse(result.getValue().isPresent());
+
+        Assertions.assertTrue(result.isFailure());
+        Assertions.assertFalse(result.isSuccess());
+    }
 }
