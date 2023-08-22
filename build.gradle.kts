@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.r3back"
-version = "0.0.5"
+version = "0.0.6"
 
 val copyJars = {
         file: Provider<RegularFile> -> run {
