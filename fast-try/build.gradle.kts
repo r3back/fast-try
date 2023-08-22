@@ -7,7 +7,7 @@ group = rootProject.group
 version = rootProject.version
 
 dependencies {
-    implementation("junit:junit:4.13.2")
+    testImplementation("junit:junit:4.13.2")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.3")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
@@ -20,7 +20,8 @@ tasks {
         archiveFileName.set("fast-try.jar")
         archiveClassifier.set("fast-try-classifier")
 
-        relocate("com.fasterxml", "com.qualityplus.fasttry.base.lib.com.fasterxml")
+        relocate("org.intellij.lang.annotations", "com.qualityplus.fasttry.base.lib.org.intellij.lang.annotations")
+        relocate("org.jetbrains.annotations", "com.qualityplus.fasttry.base.lib.org.jetbrains.annotations")
 
         doLast {
             @Suppress("UNCHECKED_CAST")
